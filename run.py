@@ -19,6 +19,8 @@ def update_twitter_name():
     tz = timezone('Asia/Jakarta')
     name = datetime.now(tz).strftime('now%%3A %d %B %Y %H%%3A%M')
     twitter.post('https://api.twitter.com/1.1/account/update_profile.json?name=' + name)
+
+update_twitter_name()
   
 schedule.every(1).minutes.do(update_twitter_name)
   
