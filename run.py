@@ -4,6 +4,7 @@ from py_dotenv import read_dotenv
 import schedule
 import time
 from datetime import datetime
+from pytz import timezone
 
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 read_dotenv(dotenv_path)
@@ -15,8 +16,9 @@ twitter = OAuth1Session(
     resource_owner_secret=os.getenv('ACCESS_TOKEN_SECRET'))
 
 def update_twitter_name():
-    name = datetime.now().strftime('now%%3A %d %B %Y %H%%3A%M')
-    res = twitter.post('https://api.twitter.com/1.1/account/update_profile.json?name=' + name)
+    tz = timezone('Asia/Jakarta')
+    name = datetime.now(tz).strftime('now%%3A %d %B %Y %H%%3A%M')
+    twitter.post('https://api.twitter.com/1.1/account/update_profile.json?name=' + name)
   
 schedule.every(1).minutes.do(update_twitter_name)
   
