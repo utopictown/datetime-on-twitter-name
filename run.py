@@ -22,7 +22,7 @@ def update_twitter_name():
 
 update_twitter_name()
   
-schedule.every(1).minutes.do(update_twitter_name)
+schedule.every(5).seconds.do(update_twitter_name)
   
 while True:
     schedule.run_pending()
