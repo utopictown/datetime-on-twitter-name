@@ -17,9 +17,11 @@ pip install
 ```
 
 - Copy .env.example to .env
-- fill out keys you get from [developer.twitter.com](developer.twitter.com)
+- fill out keys you get from [developer.twitter.com](developer.twitter.com) to .env
 
 - Run script
 ```bash
-python3 run.py
+python3 run.py Asia/Jakarta
 ```
+
+You can replace **Asia/Jakarta** to any valid timezone definition (e.g. Asia/Tokyo, US/Pacific, Europe/Berlin)
