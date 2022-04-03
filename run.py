@@ -18,7 +18,7 @@ session = OAuth1Session(
 def update_twitter_name(tz):
     offset = round(tz.utcoffset(datetime.now()).total_seconds() / 3600)
     prepend = "+" if offset >= 0 else ""
-    name = parse.quote(f"{datetime.now(tz).strftime('now: %d %B %Y %H:%M')} UTC {prepend}{offset}")
+    name = parse.quote(f"{datetime.now(tz).strftime('now: %d %B %Y %H:%M')} UTC{prepend}{offset}")
     session.post('https://api.twitter.com/1.1/account/update_profile.json?name=' + name)
 
 offset_input = ""
