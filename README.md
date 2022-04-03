@@ -24,4 +24,4 @@ pip install
 python3 run.py Asia/Jakarta
 ```
 
-You can replace Asia/Jakarta to any valid timezone definition (e.g. Asia/Tokyo, US/Pacific)
+You can replace **Asia/Jakarta** to any valid timezone definition (e.g. Asia/Tokyo, US/Pacific)
