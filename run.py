@@ -9,7 +9,7 @@ import sys
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 read_dotenv(dotenv_path)
 
-twitter = OAuth1Session(
+session = OAuth1Session(
     os.getenv('CLIENT_KEY'),
     client_secret=os.getenv('CLIENT_SECRET'),
     resource_owner_key=os.getenv('ACCESS_TOKEN'),
@@ -19,7 +19,7 @@ def update_twitter_name(tz):
     offset = round(tz.utcoffset(datetime.now()).total_seconds() / 3600)
     prepend = "+" if offset >= 0 else ""
     name = parse.quote(f"{datetime.now(tz).strftime('now: %d %B %Y %H:%M')} UTC {prepend}{offset}")
-    twitter.post('https://api.twitter.com/1.1/account/update_profile.json?name=' + name)
+    session.post('https://api.twitter.com/1.1/account/update_profile.json?name=' + name)
 
 offset_input = ""
 
