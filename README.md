@@ -17,7 +17,7 @@ pip install
 ```
 
 - Copy .env.example to .env
-- fill out keys you get from [developer.twitter.com](developer.twitter.com)
+- fill out keys you get from [developer.twitter.com](developer.twitter.com) to .env
 
 - Run script
 ```bash
