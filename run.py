@@ -15,7 +15,8 @@ session = OAuth1Session(
     resource_owner_key=os.getenv('ACCESS_TOKEN'),
     resource_owner_secret=os.getenv('ACCESS_TOKEN_SECRET'))
 
-def update_twitter_name(tz):
+def update_twitter_name(offset_input):
+    tz = timezone(offset_input)
     offset = round(tz.utcoffset(datetime.now()).total_seconds() / 3600)
     prepend = "+" if offset >= 0 else ""
     name = parse.quote(f"{datetime.now(tz).strftime('now: %d %B %Y %H:%M')} UTC{prepend}{offset}")
@@ -35,7 +36,5 @@ if len(offset_input):
         raise Exception('Invalid Timezone')
 else:
     raise Exception('Please provide timezone')
-    
-tz = timezone(offset_input)
 
-update_twitter_name(tz)
+update_twitter_name(offset_input)
