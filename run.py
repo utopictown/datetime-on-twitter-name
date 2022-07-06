@@ -7,7 +7,7 @@ from pytz import timezone, all_timezones
 from urllib import parse
 import sys
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 read_dotenv(dotenv_path)
@@ -18,7 +18,7 @@ session = OAuth1Session(
     resource_owner_key=os.getenv('ACCESS_TOKEN'),
     resource_owner_secret=os.getenv('ACCESS_TOKEN_SECRET'))
 
-def get_data(sg_section):
+def get_data(sg_section: Tag):
     for i, child in enumerate(sg_section.children):
             text = child.get_text(strip=True)
             if text != '' or i % 2 == 0:
