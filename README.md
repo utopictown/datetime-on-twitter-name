@@ -2,7 +2,7 @@
 small python script to show datetime on your twitter display name
 
 ## Requirements
-python => 3
+python >= 3
 
 ## How to use
 
