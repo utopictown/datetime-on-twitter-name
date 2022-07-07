@@ -53,8 +53,19 @@ def update_twitter_name(offset_input, type='date'):
         res_sg = get_data(sg_section)
         hk_section = td.select_one('tr:nth-child(6)')
         res_hk = get_data(hk_section)
-        
         name = parse.quote(f"{res_sg['region']}: {res_sg['value']} {res_hk['region']}: {res_hk['value']} {res_sdy['region']}: {res_sdy['value']}")
+    if type == 'btc':
+        r = requests.get('https://indodax.com/api/btc_idr/ticker')
+        btcidr = r.json()['ticker']['buy']
+        name = parse.quote(f"BTC-IDR: Rp {btcidr}")
+    if type == 'eth':
+        r = requests.get('https://indodax.com/api/eth_idr/ticker')
+        ethidr = r.json()['ticker']['buy']
+        name = parse.quote(f"ETH-IDR: Rp {ethidr}")
+    if type == 'kobo':
+        r = requests.get('https://kobo-kanaeru.vercel.app/api/kobo')
+        kobosub = r.json()['youtube']['subscriberCount']
+        name = parse.quote(f"Kobo YT Subs: {kobosub}")
     else:
         tz = timezone(offset_input)
         offset = round(tz.utcoffset(datetime.now()).total_seconds() / 3600)
