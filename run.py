@@ -54,15 +54,17 @@ def update_twitter_name(offset_input, type='date'):
         hk_section = td.select_one('tr:nth-child(6)')
         res_hk = get_data(hk_section)
         name = parse.quote(f"{res_sg['region']}: {res_sg['value']} {res_hk['region']}: {res_hk['value']} {res_sdy['region']}: {res_sdy['value']}")
-    if type == 'btc':
+    elif type == 'btc':
         r = requests.get('https://indodax.com/api/btc_idr/ticker')
         btcidr = r.json()['ticker']['buy']
         name = parse.quote(f"BTC-IDR: Rp {btcidr}")
-    if type == 'eth':
+        print(name)
+    elif type == 'eth':
         r = requests.get('https://indodax.com/api/eth_idr/ticker')
         ethidr = r.json()['ticker']['buy']
         name = parse.quote(f"ETH-IDR: Rp {ethidr}")
-    if type == 'kobo':
+        print(name)
+    elif type == 'kobo':
         r = requests.get('https://kobo-kanaeru.vercel.app/api/kobo')
         kobosub = r.json()['youtube']['subscriberCount']
         name = parse.quote(f"Kobo YT Subs: {kobosub}")
@@ -92,5 +94,7 @@ else:
 mode_list = os.getenv('MODE').split(',')
 
 index = random.randint(0, len(mode_list) - 1)
+
+print(mode_list[index])
 
 update_twitter_name(offset_input, mode_list[index])
