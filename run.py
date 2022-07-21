@@ -42,7 +42,7 @@ def get_data(sg_section: Tag):
                     
     return res
 
-def update_twitter_name(offset_input, type='date'):
+def update_twitter_name(type='date', offset_input='', name_input=''):
     if type == 'togel':
         r = requests.get('http://167.71.203.197/')
         soup = BeautifulSoup(r.content, 'html.parser')    
@@ -68,6 +68,8 @@ def update_twitter_name(offset_input, type='date'):
         r = requests.get('https://kobo-kanaeru.vercel.app/api/kobo')
         kobosub = r.json()['youtube']['subscriberCount']
         name = parse.quote(f"Kobo YT Subs: {kobosub}")
+    elif type == 'name':
+        name = name_input
     else:
         tz = timezone(offset_input)
         offset = round(tz.utcoffset(datetime.now()).total_seconds() / 3600)
@@ -83,7 +85,13 @@ try:
 except:
     raise Exception('Please provide timezone')
 
+try:
+    sys.argv[2]
+except:
+    raise Exception('Please provide name')
+
 offset_input = sys.argv[1].replace(" ", "")
+name_input = sys.argv[2].replace(" ", "")
 
 if len(offset_input):
     if offset_input not in all_timezones:
@@ -97,4 +105,4 @@ index = random.randint(0, len(mode_list) - 1)
 
 print(mode_list[index])
 
-update_twitter_name(offset_input, mode_list[index])
+update_twitter_name(mode_list[index], offset_input, name_input)
