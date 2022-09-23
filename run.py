@@ -56,12 +56,12 @@ def update_twitter_name(type='date', offset_input='', name_input=''):
         name = parse.quote(f"{res_sg['region']}: {res_sg['value']} {res_hk['region']}: {res_hk['value']} {res_sdy['region']}: {res_sdy['value']}")
     elif type == 'btc':
         r = requests.get('https://indodax.com/api/btc_idr/ticker')
-        btcidr = r.json()['ticker']['buy']
+        btcidr = r.json()['ticker']['buy'].split(".")[0]
         name = parse.quote(f"BTC-IDR: Rp {btcidr}")
         print(name)
     elif type == 'eth':
         r = requests.get('https://indodax.com/api/eth_idr/ticker')
-        ethidr = r.json()['ticker']['buy']
+        ethidr = r.json()['ticker']['buy'].split(".")[0]
         name = parse.quote(f"ETH-IDR: Rp {ethidr}")
         print(name)
     elif type == 'kobo':
