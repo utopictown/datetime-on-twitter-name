@@ -71,7 +71,7 @@ def update_twitter_name(type='date', offset_input='', name_input=''):
     elif type == 'name':
         name = name_input
     elif type == 'sticker':
-        name = '💟　Sticker'
+        name = '💟Sticker'
     else:
         tz = timezone(offset_input)
         offset = round(tz.utcoffset(datetime.now()).total_seconds() / 3600)
