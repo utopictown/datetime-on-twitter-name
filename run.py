@@ -18,7 +18,11 @@ session = OAuth1Session(
     resource_owner_key=os.getenv('ACCESS_TOKEN'),
     resource_owner_secret=os.getenv('ACCESS_TOKEN_SECRET'))
 
-def get_data(sg_section: Tag):
+SINGAPORE = 'Singapura'
+HONGKONG = 'Hongkong'
+SYDNEY = 'Sydney'
+
+def get_data_old(sg_section: Tag):
     for i, child in enumerate(sg_section.children):
             text = child.get_text(strip=True)
             if text != '' or i % 2 == 0:
@@ -42,17 +46,34 @@ def get_data(sg_section: Tag):
                     
     return res
 
+def get_data(sg_section: Tag, region):
+    value = sg_section.select_one('td:nth-child(4)').get_text()
+    region = region
+    if region == SINGAPORE:
+        region = 'SG'
+    if region == HONGKONG:
+        region = 'HK'
+    if region == SYDNEY:
+        region = 'SDY'
+                    
+    res = {
+        'region': region,
+        'value': value
+    }
+                    
+    return res
+
 def update_twitter_name(type='date', offset_input='', name_input=''):
     if type == 'togel':
-        r = requests.get('http://167.71.203.197/')
-        soup = BeautifulSoup(r.content, 'html.parser')    
-        td = soup.select_one('.resulttogellive')
-        sdy_section = td.select_one('tr:nth-child(2)')
-        res_sdy = get_data(sdy_section)
-        sg_section = td.select_one('tr:nth-child(4)')
-        res_sg = get_data(sg_section)
-        hk_section = td.select_one('tr:nth-child(6)')
-        res_hk = get_data(hk_section)
+        r = requests.get('http://146.190.110.87/')
+        soup = BeautifulSoup(r.content, 'html.parser')  
+        body = soup.select_one('tbody')  
+        row_sg = body.select_one('tr:nth-child(3)')
+        res_sg = get_data(row_sg, SINGAPORE)
+        row_hk = body.select_one('tr:nth-child(4)')
+        res_hk = get_data(row_hk, HONGKONG)
+        row_sdy = body.select_one('tr:nth-child(2)')
+        res_sdy = get_data(row_sdy, SYDNEY)
         name = parse.quote(f"{res_sg['region']}: {res_sg['value']} {res_hk['region']}: {res_hk['value']} {res_sdy['region']}: {res_sdy['value']}")
     elif type == 'btc':
         r = requests.get('https://indodax.com/api/btc_idr/ticker')
